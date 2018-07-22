@@ -1,59 +1,45 @@
-import { Component, ViewChild } from "@angular/core";
-import { Platform, Nav } from "ionic-angular";
-
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Keyboard } from '@ionic-native/keyboard';
-
-import { HomePage } from "../pages/home/home";
-import { LoginPage } from "../pages/login/login";
-import { LocalWeatherPage } from "../pages/local-weather/local-weather";
-
-export interface MenuItem {
-    title: string;
-    component: any;
-    icon: string;
-}
-
+import { HomePage } from '../pages/home/home';
+import { LogInPage } from '../pages/log-in/log-in';
+import { GradesPage } from '../pages/grades/grades';
+import { NotificationsPage } from '../pages/notifications/notifications';
+import { MessagesPage } from '../pages/messages/messages';
+import { MyFilesPage } from '../pages/my-files/my-files';
+import { CalenderEventsPage } from '../pages/calender-events/calender-events';
+import { SiteHomePage } from '../pages/site-home/site-home';
 @Component({
   templateUrl: 'app.html'
 })
-
 export class MyApp {
-  @ViewChild(Nav) nav: Nav;
+  @ViewChild(Nav) nav: Nav
+  rootPage: any = LogInPage;
+  pages: Array<{ title: string, component: any, icon: string }>;
 
-  rootPage: any = LoginPage;
-
-  appMenuItems: Array<MenuItem>;
-
-  constructor(
-    public platform: Platform,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen,
-    public keyboard: Keyboard
-  ) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
-    this.appMenuItems = [
-      {title: 'Home', component: HomePage, icon: 'home'},
-      {title: 'Local Weather', component: LocalWeatherPage, icon: 'partly-sunny'}
+    // used for an example of ngFor and navigation
+    this.pages = [
+      { title: 'Course overview', component: HomePage, icon: 'eye' },
+      { title: 'Site home', component: SiteHomePage, icon: 'home' },
+      { title: 'Grades', component: GradesPage, icon: 'stats' },
+      { title: 'Notifications', component: NotificationsPage, icon: 'notifications' },
+      { title: 'Messages', component: MessagesPage, icon: 'mail' },
+      { title: 'Calendar events', component: CalenderEventsPage, icon: 'calendar' },
+      { title: 'My files', component: MyFilesPage, icon: 'folder' },
     ];
+
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
-
-      //*** Control Splash Screen
-      // this.splashScreen.show();
-      // this.splashScreen.hide();
-
-      //*** Control Status Bar
+      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
-      this.statusBar.overlaysWebView(false);
-
-      //*** Control Keyboard
-      this.keyboard.disableScroll(true);
+      this.splashScreen.hide();
     });
   }
 
@@ -62,9 +48,5 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
-
-  logout() {
-    this.nav.setRoot(LoginPage);
-  }
-
+  
 }

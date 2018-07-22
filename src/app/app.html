@@ -5,9 +5,9 @@
       <ion-grid>
         <ion-row>
           <ion-col col-4>
-              <div class="user-avatar">
-                <img src="../assets/img/avatar.jpeg">
-              </div>
+            <div class="user-avatar">
+              <img src="../assets/imgs/avatar.jpeg">
+            </div>
           </ion-col>
           <ion-col padding-top col-8>
             <h2 ion-text class="no-margin bold text-white">
@@ -25,7 +25,8 @@
             </button>
           </ion-col>
           <ion-col no-padding class="column">
-            <button ion-button icon-left small full color="light" menuClose (click)="logout()">
+            <!--<button ion-button icon-left small full color="light" menuClose (click)="logout()">-->
+            <button ion-button icon-left small full color="light" menuClose>
               <ion-icon name="log-out"></ion-icon>
               Log Out
             </button>
@@ -38,15 +39,15 @@
   </ion-header>
 
   <ion-content color="primary">
-
-    <ion-list class="user-list">
-      <button ion-item menuClose class="text-1x" *ngFor="let menuItem of appMenuItems" (click)="openPage(menuItem)">
-        <ion-icon item-left [name]="menuItem.icon" color="primary"></ion-icon>
-        <span ion-text color="primary">{{menuItem.title}}</span>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon item-left [name]="p.icon" color="primary"></ion-icon>
+        <span ion-text color="primary">{{p.title}}</span>
       </button>
     </ion-list>
   </ion-content>
 
 </ion-menu>
 
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
